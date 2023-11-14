@@ -32,21 +32,41 @@ namespace APIeasytask.Controllers
         }
 
 
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Models.Task task)
         {
-            if(task == null)
+            if (task == null)
             {
                 return BadRequest("Task object is null");
             }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            task.TaskId = 0;
+
+            // Definindo a data de criação como a data atual
             task.CreatedAt = DateTime.Now;
 
+            var existingPriority = await _context.Priorities.FindAsync(task.Priority?.PriorityId);
+            if (existingPriority == null)
+            {
+                return BadRequest("Invalid PriorityId");
+            }
+            task.Priority = existingPriority;
+
             _context.Tasks.Add(task);
+
+            if (task.Subtasks != null && task.Subtasks.Any())
+            {
+                foreach (var subtask in task.Subtasks)
+                {
+                    subtask.TaskId = task.TaskId; // Associando a subtask à tarefa correta
+                    _context.Subtasks.Add(subtask);
+                }
+            }
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTask", new { id = task.TaskId }, task);
