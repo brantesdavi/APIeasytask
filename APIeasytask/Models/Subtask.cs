@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APIeasytask.Models
 {
-    public class Substask
+    public class Subtask
     {
         [Key] public int SubtaskId { get; set; }
         [Required]

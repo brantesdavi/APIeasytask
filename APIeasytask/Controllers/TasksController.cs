@@ -20,11 +20,13 @@ namespace APIeasytask.Controllers
             _context = context;
         }
 
-        // GET: Tasks
         [HttpGet]
         public IActionResult GetAllTasks()
         {
-            var tasks = _context.Tasks.ToList();
+            var tasks = _context.Tasks
+                .Include(t => t.Priority) // Incluindo a entidade Priority relacionada à Task
+                .Include(t => t.Subtasks) // Incluindo as Subtasks relacionadas à Task
+                .ToList();
 
             return Ok(tasks);
         }

@@ -12,11 +12,14 @@ namespace APIeasytask.Models
         public string Title { get; set; } = "";
         [Column(TypeName = "nvarchar(250)")]
         public string Description { get; set; }
-        [Required]
-        public int PriorityId { get; set; }
+
         [Required]
         public DateTime CreatedAt { get; set; }
-        public DateTime Deadline { get; set;}
+        public DateTime Deadline { get; set; }
+
+        [ForeignKey("PriorityId")]
+        public Priority Priority { get; set; }
+        public List<Subtask> Subtasks { get; set; }
 
     }
 }
