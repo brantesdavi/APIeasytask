@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TbZ+9fkQ67yy2XjZ/6Wz0VGhacjQzQYkeRUFW+FsGkbJfLmKUbLre0x+DSoDhYSco5crCQihvn1djnyJUlz0Gg==",
+  "dgSpecHash": "3D7Mgb8+sTSr7lYMd0+iF7Qn68kqn6+8QBY6jIgnWNHf+Vf6sUA3b2iTaQ7fh1PI3DioGrnYuAFR+yF8JSx/jA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Davi Brantes\\Source\\Repos\\APIeasytask\\APIeasytask\\APIeasytask.csproj",
+  "projectFilePath": "C:\\Users\\Davi Brantes\\Documents\\DEV\\easytask\\APIeasytask\\APIeasytask\\APIeasytask.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Davi Brantes\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Davi Brantes\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
