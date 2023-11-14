@@ -11673,11 +11673,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Davi Brantes\\Documents\\DEV\\To-Do List\\easytask\\APIeasytask\\APIeasytask\\APIeasytask.csproj",
+      "projectUniqueName": "C:\\Users\\Davi Brantes\\Source\\Repos\\APIeasytask\\APIeasytask\\APIeasytask.csproj",
       "projectName": "APIeasytask",
-      "projectPath": "C:\\Users\\Davi Brantes\\Documents\\DEV\\To-Do List\\easytask\\APIeasytask\\APIeasytask\\APIeasytask.csproj",
+      "projectPath": "C:\\Users\\Davi Brantes\\Source\\Repos\\APIeasytask\\APIeasytask\\APIeasytask.csproj",
       "packagesPath": "C:\\Users\\Davi Brantes\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Davi Brantes\\Documents\\DEV\\To-Do List\\easytask\\APIeasytask\\APIeasytask\\obj\\",
+      "outputPath": "C:\\Users\\Davi Brantes\\Source\\Repos\\APIeasytask\\APIeasytask\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Davi Brantes\\AppData\\Roaming\\NuGet\\NuGet.Config",
