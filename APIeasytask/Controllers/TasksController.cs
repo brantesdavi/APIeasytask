@@ -24,8 +24,8 @@ namespace APIeasytask.Controllers
         public IActionResult GetAllTasks()
         {
             var tasks = _context.Tasks
-                .Include(t => t.Priority) // Incluindo a entidade Priority relacionada à Task
-                .Include(t => t.Subtasks) // Incluindo as Subtasks relacionadas à Task
+                .Include(t => t.Priority) 
+                .Include(t => t.Subtasks) 
                 .ToList();
 
             return Ok(tasks);
@@ -62,7 +62,7 @@ namespace APIeasytask.Controllers
             {
                 foreach (var subtask in task.Subtasks)
                 {
-                    subtask.TaskId = task.TaskId; // Associando a subtask à tarefa correta
+                    subtask.TaskId = task.TaskId; 
                     _context.Subtasks.Add(subtask);
                 }
             }
@@ -79,11 +79,96 @@ namespace APIeasytask.Controllers
 
             if (task == null)
             {
-                return NotFound(); // Retorna 404 Not Found se a tarefa não for encontrada
+                return NotFound(); 
             }
 
-            return Ok(task); // Retorna 200 OK com os detalhes da tarefa se encontrada
+            return Ok(task);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var task = await _context.Tasks.FindAsync(id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            _context.Tasks.Remove(task);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] Models.Task updatedTask)
+        {
+            if (id != updatedTask.TaskId)
+            {
+                return BadRequest("Task ID mismatch");
+            }
+
+            var existingTask = await _context.Tasks.FindAsync(id);
+
+            if (existingTask == null)
+            {
+                return NotFound();
+            }
+
+            existingTask.Title = updatedTask.Title;
+            existingTask.Description = updatedTask.Description;
+            existingTask.Deadline = updatedTask.Deadline;
+
+            var existingPriority = await _context.Priorities.FindAsync(updatedTask.Priority?.PriorityId);
+            if (existingPriority == null)
+            {
+                return BadRequest("Invalid PriorityId");
+            }
+            existingTask.Priority = existingPriority;
+
+            // Assuming Subtasks can be updated
+            if (updatedTask.Subtasks != null && updatedTask.Subtasks.Any())
+            {
+                // Remove existing subtasks associated with the task
+                _context.Subtasks.RemoveRange(_context.Subtasks.Where(s => s.TaskId == id));
+
+                // Add updated subtasks
+                foreach (var subtask in updatedTask.Subtasks)
+                {
+                    subtask.TaskId = id;
+                    _context.Subtasks.Add(subtask);
+                }
+            }
+
+            _context.Entry(existingTask).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TaskExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        private bool TaskExists(int id)
+        {
+            return _context.Tasks.Any(e => e.TaskId == id);
+        }
+
+
+
 
     }
 }

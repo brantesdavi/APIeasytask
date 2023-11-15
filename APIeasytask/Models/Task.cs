@@ -19,7 +19,7 @@ namespace APIeasytask.Models
 
         [ForeignKey("PriorityId")]
         public Priority Priority { get; set; }
-        public List<Subtask> Subtasks { get; set; }
+        public List<Subtask>? Subtasks { get; set; }
 
     }
 }
